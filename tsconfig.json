@@ -6,8 +6,9 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "rootDir": "src/",
+    "rootDir": ".",
     "outDir": "dist/"
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "include": ["types/", "src/"]
 }
