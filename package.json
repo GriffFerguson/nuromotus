@@ -6,8 +6,8 @@
   "scripts": {
     "build": "npx tsc",
     "lint": "npx tsc --no-emit",
-    "test:controller": "npx tsc && node dist/controller/index.js",
-    "test:bci": "npx tsc && node dist/bci/index.js"
+    "dev:controller": "npx tsc && node dist/controller/server.js",
+    "dev:bci": "npx tsc && node dist/bci/index.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.7",
+    "pigpio": "^3.3.1",
     "ws": "^8.18.1"
   }
 }
