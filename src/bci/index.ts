@@ -2,13 +2,16 @@ import WebSocket from "ws";
 import { resolve } from "path";
 import { RPCRequest } from "./rpc";
 import { connectHeadset, authorizeCortex, createCortexSession } from "./setupConnection";
+import Log from "../logger";
 const dotenv = require("dotenv");
+
+// prevent unsecure TLS connection from preventing connection
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 // Add generic information to env
 dotenv.config({path: resolve(__dirname, "../../safe.env")});
 // Add secrets to env
 dotenv.config({path: resolve(__dirname, "../../.env")});
-console.log(process.env.CORTEX_URL)
 
 export const Cortex = new WebSocket(process.env.CORTEX_URL!);
 
@@ -27,12 +30,13 @@ Cortex.onmessage = (e) => {
     // TODO: implement proper connection to Motor Controller service
 }
 
-Cortex.onopen = (e) => {
+Cortex.on("open", () => {
+    Log("Connection opened", 0);
     // begin by authenticating
     Cortex.send(RPCRequest(
         "requestAccess",
         {
-            "clientID": process.env.EMOTIV_ID,
+            "clientId": process.env.EMOTIV_ID,
             "clientSecret": process.env.EMOTIV_SECRET
         }
     ))
@@ -42,4 +46,8 @@ Cortex.onopen = (e) => {
     let headset: string;
     Cortex.send(RPCRequest("queryHeadsets", {}, "initial_query"));
     // hand off to functions in setupConnections.ts (specifically connectHeadset)
+})
+
+Cortex.onerror = e => {
+    Log(`Cortex API threw a fatal error!\n${e.error}\n${e.message}`, 3);
 }

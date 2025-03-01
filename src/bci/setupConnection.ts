@@ -1,17 +1,20 @@
 import { Cortex } from ".";
+import Log from "../logger";
 import { RPCRequest } from "./rpc";
 
 let headset: string;
 
 
 export function connectHeadset(data: RPCResponse) {
+    // from headset query
     // error checking
-    if (data.error || !data.result[0] || !data.result[0].connected) {
-        throw "Could not detect a connected headset\n" + data.error;
+    if (data.error || !data.result[0] || !data.result[0].connectedBy) {
+        Log("Could not detect a connected headset\n" + data.error, 3);
     }
 
     // connect to headset
     // https://emotiv.gitbook.io/cortex-api/headset/controldevice
+    Log("Detected headset, preparing to connect", 0)
     headset = data.result[0].id
     Cortex.send(RPCRequest(
         "controlDevice",
@@ -25,13 +28,14 @@ export function connectHeadset(data: RPCResponse) {
 
 export function authorizeCortex(data: RPCResponse) {
     if (data.error) {
-        throw "Could not connect to headset\n" + data.error;
+        Log("Could not connect to headset due to API error\n" + data.error, 3);
     }
 
-    if (data.warning?.code == 104) {
-        console.log(`SUCCESS: Connected to headset ${headset}`);
+    if (data.result) {
+        Log(`SUCCESS: Connected to headset ${headset}`, 0);
     } else {
-        throw "Could not connect to headset\n" + data.error;
+        // basically does the safe thing as the `if (data.error)` above
+        Log("Could not connect to headset\n" + data.error, 3);
     }
 
     Cortex.send(RPCRequest(
@@ -45,8 +49,9 @@ export function authorizeCortex(data: RPCResponse) {
 }
 
 export function createCortexSession(data: RPCResponse) {
+    Log("SUCCESS: Received authorization from Cortex", 0);
     if (data.error) {
-        throw "Could not get authorization from Cortex\n" + data.error
+        Log("Could not get authorization from Cortex\n" + data.error, 3);
     }
 
     Cortex.send(RPCRequest(
