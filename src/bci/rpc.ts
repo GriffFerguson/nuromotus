@@ -1,4 +1,4 @@
-export function RPCRequest(
+export default function RPCRequest(
     method: string,
     params?: Object,
     id?: number | string
