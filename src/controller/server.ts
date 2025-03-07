@@ -30,6 +30,7 @@ Server.on("connection", socket => {
 
         if (req.type == "MotorDrive") {
             let data: WSMotorDriveRequest = (req as WSMotorDriveRequest);
+            Log("Received motor drive request with the following data:\n" + JSON.stringify(data), 0)
             MotorDriver(data);
         } else if (req.type == "LEDTest") {
             let data: WSLEDTestRequest = (req as WSLEDTestRequest);

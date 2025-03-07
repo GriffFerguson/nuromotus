@@ -23,7 +23,7 @@ socket.on("open", () => {
 
     setTimeout(() => {
         console.log("stopping");
-        ws.send(JSON.stringify({
+        socket.send(JSON.stringify({
             type: "MotorDrive",
             left: {
                 speed: 25,
