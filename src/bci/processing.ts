@@ -1,6 +1,6 @@
 import WebSocket from "ws";
 import Log from "../logger";
-import PWM from "../values";
+import PWM from "../constants";
 
 if (!process.env.CONTROLLER_URL) {
     Log("Controller URL not provided; cannot connect to motor controller via WebSockets.", 3);
@@ -34,15 +34,21 @@ export default function processData(command: MentalCommands, intensity: number) 
         Motors.left.direction = "backward";
         Motors.right.direction = "backward";
     } else if (command == "left") {
-        Motors.left.speed = PWM.SPEED;
-        Motors.right.speed = PWM.SPEED;
+        Motors.left.speed = PWM.FORWARD;
+        Motors.right.speed = PWM.BACKWARD;
         Motors.left.direction = "forward";
         Motors.right.direction = "backward";
-    } else if (command="right") {
-        Motors.left.speed = PWM.SPEED;
-        Motors.right.speed = PWM.SPEED;
+    } else if (command=="right") {
+        Motors.left.speed = PWM.BACKWARD;
+        Motors.right.speed = PWM.FORWARD;
         Motors.left.direction = "backward";
         Motors.right.direction = "forward";
+    } else if (command == "lift") { // led test
+        MotorController.send(JSON.stringify({
+            type: "LEDTest",
+            value: (intensity > 0.4)
+        }))
+        return;
     } else {    // this includes neutral commands
         Motors.left.speed = PWM.OFF;
         Motors.right.speed = PWM.OFF;

@@ -1,6 +1,8 @@
 import { WebSocketServer } from "ws";
 import { resolve } from "path";
 import Log from "../logger";
+import MotorDriver from "./motor_driver";
+import LEDTest from "./led_test";
 const dotenv = require("dotenv");
 // Add generic information to env
 dotenv.config({path: resolve(__dirname, "../../safe.env")});
@@ -27,8 +29,12 @@ Server.on("connection", socket => {
         }
 
         if (req.type == "MotorDrive") {
-            let data: WSMotorDriveRequest = (req as WSMotorDriveRequest)
-            console.log(`${data.motor} motor to ${data.direction} ${data.speed}`);
+            let data: WSMotorDriveRequest = (req as WSMotorDriveRequest);
+            MotorDriver(data);
+        } else if (req.type == "LEDTest") {
+            let data: WSLEDTestRequest = (req as WSLEDTestRequest);
+            Log(`Received LED test signal with value ${data.value}`, 1);
+            LEDTest(data.value);
         }
     })
 })

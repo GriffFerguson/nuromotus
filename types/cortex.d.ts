@@ -19,7 +19,7 @@ type RPCResponse = {
     id: number | string,
 }
 
-type MentalCommands = "neutral" | "push" | "pull" | "left" | "right";
+type MentalCommands = "neutral" | "push" | "pull" | "left" | "right" | "lift";
 
 type DataSample = {
     // data for the mental commands ("com") stream

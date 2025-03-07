@@ -13,3 +13,7 @@ interface WSMotorDriveRequest extends WSRequest {
     left: MotorDriveRequestData,
     right: MotorDriveRequestData
 }
+
+interface WSLEDTestRequest extends WSRequest {
+    value: boolean
+}
