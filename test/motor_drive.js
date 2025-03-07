@@ -1,4 +1,4 @@
-const ws = require("ws");
+const { WebSocket } = require("ws");
 const { resolve } = require("path");
 const dotenv = require("dotenv");
 dotenv.config({path: resolve(__dirname, "../../safe.env")});
