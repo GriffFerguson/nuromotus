@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "lint": "npx tsc --no-emit",
+    "lint": "npx tsc --noEmit",
     "dev:controller": "npx tsc && node dist/controller/server.js",
     "dev:bci": "npx tsc && node dist/bci/index.js",
     "dev:bci_motor": "node test/controller_ws.js"

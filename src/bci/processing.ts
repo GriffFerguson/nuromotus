@@ -1,7 +1,11 @@
 import WebSocket from "ws";
 import Log from "../logger";
 import PWM from "../constants";
+import { resolve } from "path";
+const dotenv = require("dotenv");
 
+// Add generic information to env
+dotenv.config({path: resolve(__dirname, "../../safe.env")});
 if (!process.env.CONTROLLER_URL) {
     Log("Controller URL not provided; cannot connect to motor controller via WebSockets.", 3);
 }
@@ -38,12 +42,13 @@ export default function processData(command: MentalCommands, intensity: number) 
         Motors.right.speed = PWM.BACKWARD;
         Motors.left.direction = "forward";
         Motors.right.direction = "backward";
-    } else if (command=="right") {
+    } else if (command =="right") {
         Motors.left.speed = PWM.BACKWARD;
         Motors.right.speed = PWM.FORWARD;
         Motors.left.direction = "backward";
         Motors.right.direction = "forward";
     } else if (command == "lift") { // led test
+        console.log("BCI attempting to run LED test")
         MotorController.send(JSON.stringify({
             type: "LEDTest",
             value: (intensity > 0.4)
