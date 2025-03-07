@@ -8,7 +8,8 @@
     "lint": "npx tsc --noEmit",
     "dev:controller": "npx tsc && node dist/controller/server.js",
     "dev:bci": "npx tsc && node dist/bci/index.js",
-    "dev:bci_motor": "node test/controller_ws.js"
+    "dev:mock_controller": "node test/controller_ws.js",
+    "dev:mock_motordrive": "node test/motor_drive.js"
   },
   "keywords": [],
   "author": "",
