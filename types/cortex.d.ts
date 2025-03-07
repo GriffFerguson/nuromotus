@@ -19,10 +19,12 @@ type RPCResponse = {
     id: number | string,
 }
 
+type MentalCommands = "neutral" | "push" | "pull" | "left" | "right";
+
 type DataSample = {
     // data for the mental commands ("com") stream
     com: Array<
-        "neutral" | "push" | "pull" | "left" | "right",
+        MentalCommands,
         number
     >,
     sid: string,    // session ID

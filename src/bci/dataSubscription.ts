@@ -1,5 +1,6 @@
 import { Cortex } from ".";
 import Log from "../logger";
+import processData from "./processing";
 import RPCRequest from "./rpc";
 
 export function subscribeToCommands(data: RPCResponse, cortexToken: string) {
@@ -26,5 +27,6 @@ export function subscribeToCommands(data: RPCResponse, cortexToken: string) {
 }
 
 export function listenForCommands(data: DataSample) {
-    console.log(`Command ${data.com[0]} has intensity ${data.com[1]}`);
+    processData(data.com[0], data.com[1]);
+    Log(`Command ${data.com[0]} has intensity ${data.com[1]}`, 0);
 }

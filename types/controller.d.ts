@@ -2,9 +2,14 @@ type WSRequest = {
     type: "MotorDrive"
 }
 
-interface WSMotorDriveRequest extends WSRequest {
-    motor: "left" | "right" | "dual",
-    direction: "forward" | "backward",
+type MotorDirection = "forward" | "backward"
+type MotorDriveRequestData = {
     speed?: number,
-    increment?: number
+    increment?: number,
+    direction: MotorDirection
+}
+
+interface WSMotorDriveRequest extends WSRequest {
+    left: MotorDriveRequestData,
+    right: MotorDriveRequestData
 }
