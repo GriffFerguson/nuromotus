@@ -5,8 +5,8 @@ dotenv.config({path: resolve(__dirname, "../../safe.env")});
 
 const socket = new WebSocket(process.env.CONTROLLER_URL);
 
-ws.on("open", () => {
-    ws.send(JSON.stringify({
+socket.on("open", () => {
+    socket.send(JSON.stringify({
         type: "MotorDrive",
         left: {
             speed: 50,
