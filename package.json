@@ -7,7 +7,8 @@
     "build": "npx tsc",
     "lint": "npx tsc --no-emit",
     "dev:controller": "npx tsc && node dist/controller/server.js",
-    "dev:bci": "npx tsc && node dist/bci/index.js"
+    "dev:bci": "npx tsc && node dist/bci/index.js",
+    "dev:bci_motor": "node test/controller_ws.js"
   },
   "keywords": [],
   "author": "",
