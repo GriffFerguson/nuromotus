@@ -17,4 +17,18 @@ ws.on("open", () => {
             direction: "forward"
         }
     }))
+
+    setTimeout(() => {
+        ws.send(JSON.stringify({
+            type: "MotorDrive",
+            left: {
+                speed: 25,
+                direction: "forward"
+            },
+            right: {
+                speed: 25,
+                direction: "forward"
+            }
+        }))
+    }, 1000)
 })
