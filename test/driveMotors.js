@@ -10,14 +10,8 @@ const socket = new WebSocket(process.env.CONTROLLER_URL);
 socket.on("open", () => {
     socket.send(JSON.stringify({
         type: "MotorDrive",
-        left: {
-            speed: 50,
-            direction: "forward"
-        },
-        right: {
-            speed: 50,
-            direction: "forward"
-        }
+        left: "forward",
+        right: "forward"
     }))
     console.log("spinning")
 
@@ -25,14 +19,8 @@ socket.on("open", () => {
         console.log("stopping");
         socket.send(JSON.stringify({
             type: "MotorDrive",
-            left: {
-                speed: 25,
-                direction: "forward"
-            },
-            right: {
-                speed: 25,
-                direction: "forward"
-            }
+            left: "stop",
+            right: "stop"
         }))
         console.log("done!");
     }, 5000)
