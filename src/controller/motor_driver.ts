@@ -1,27 +1,46 @@
+import PWM from "../constants";
 import Output from "./motors";
 
 let Speed = {
-    left: 25,
-    right: 25,
+    left: PWM.OFF,
+    right: PWM.OFF,
 } 
 
 export default function MotorDriver(data: WSMotorDriveRequest) {
     // left motor
-    if (data.left.speed && data.left.speed >= 0 && data.left.speed <= 50) {
-        Speed.left = data.left.speed;
-        Output.Left.pwmWrite(data.left.speed)
+    if (data.left == "forward") {
+        if (Speed.left + PWM.increment > PWM.FORWARD) {
+            Speed.left = PWM.FORWARD;
+        } else {
+            Speed.left += PWM.increment;
+        }
+    } else if (data.left == "backward") {
+        if (Speed.left - PWM.increment < PWM.BACKWARD) {
+            Speed.left = PWM.BACKWARD;
+        } else {
+            Speed.left -= PWM.increment;
+        }
     } else {
-        Speed.left += data.left.increment || 0;
-        Output.Left.pwmWrite(data.left.increment || 0);
+        Speed.left = PWM.OFF;
     }
+    Output.Left.servoWrite(Speed.left)
 
     // right motor
-    if (data.right.speed && data.right.speed >= 0 && data.right.speed <= 50) {
-        Speed.right = data.right.speed;
-        Output.Left.pwmWrite(data.right.speed)
+    if (data.right == "forward") {
+        if (Speed.right + PWM.increment > PWM.FORWARD) {
+            Speed.right = PWM.FORWARD;
+        } else {
+            Speed.right += PWM.increment;
+        }
+    } else if (data.right == "backward") {
+        if (Speed.right - PWM.increment < PWM.BACKWARD) {
+            Speed.right = PWM.BACKWARD;
+        } else {
+            Speed.right -= PWM.increment;
+        }
     } else {
-        Speed.right += data.right.increment || 0;
-        Output.Left.pwmWrite(data.right.increment || 0);
+        Speed.right = PWM.OFF;
     }
+    Output.Right.servoWrite(Speed.right)
 
 }

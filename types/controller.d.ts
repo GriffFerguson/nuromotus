@@ -1,17 +1,12 @@
 type WSRequest = {
-    type: "MotorDrive"
+    type: "MotorDrive" | "LEDTest"
 }
 
-type MotorDirection = "forward" | "backward"
-type MotorDriveRequestData = {
-    speed?: number,
-    increment?: number,
-    direction: MotorDirection
-}
+type MotorDirection = "forward" | "backward" | "stop";
 
 interface WSMotorDriveRequest extends WSRequest {
-    left: MotorDriveRequestData,
-    right: MotorDriveRequestData
+    left: MotorDirection,
+    right: MotorDirection
 }
 
 interface WSLEDTestRequest extends WSRequest {

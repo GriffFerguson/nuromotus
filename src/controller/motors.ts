@@ -21,10 +21,10 @@ const Output = {
 
 Output.Converter.digitalWrite(1);   // always on to ensure voltage shifters are active
 // set PWM frequency (2000Hz or 0.5ms)
-Output.Left.pwmFrequency(2000);
-Output.Right.pwmFrequency(2000);
+// Output.Left.pwmFrequency(2000);
+// Output.Right.pwmFrequency(2000);
 // set PWM range
-Output.Left.pwmRange(50);
-Output.Right.pwmRange(50);
+// Output.Left.pwmRange(50);
+// Output.Right.pwmRange(50);
 
 export default Output;

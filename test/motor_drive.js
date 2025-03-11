@@ -35,5 +35,5 @@ socket.on("open", () => {
             }
         }))
         console.log("done!");
-    }, 1000)
+    }, 5000)
 })
