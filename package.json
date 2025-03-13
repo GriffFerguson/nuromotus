@@ -10,7 +10,8 @@
     "dev:bci": "npx tsc && node dist/bci/index.js",
     "test:mock_motor_server": "node test/bciToControllerConnection.js",
     "test:drive_motors": "node test/driveMotors.js",
-    "test:interactive_motor_driver": "node test/interactiveMotorDriver.js"
+    "test:interactive_motor_driver": "node test/interactiveMotorDriver.js",
+    "test:pwm": "node test/pwmSpinTest.js"
   },
   "keywords": [],
   "author": "",

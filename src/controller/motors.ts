@@ -1,7 +1,7 @@
-import { Gpio as GPIO, configureClock, CLOCK_PWM } from "pigpio";
+import { Gpio as GPIO } from "pigpio";
 
 // configure PWM
-configureClock(10, CLOCK_PWM);
+// configureClock(10, CLOCK_PWM);
 
 
 // Compute pin numbers
