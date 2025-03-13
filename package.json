@@ -11,7 +11,7 @@
     "test:mock_motor_server": "node test/bciToControllerConnection.js",
     "test:drive_motors": "node test/driveMotors.js",
     "test:interactive_motor_driver": "node test/interactiveMotorDriver.js",
-    "test:pwm": "node test/pwmSpinTest.js"
+    "test:pwm": "npx tsc && node test/pwmSpinTest.js"
   },
   "keywords": [],
   "author": "",

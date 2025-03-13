@@ -1,8 +1,9 @@
 import { Gpio as GPIO } from "pigpio";
-
-// configure PWM
-// configureClock(10, CLOCK_PWM);
-
+import { resolve } from "path";
+import Log from "../logger";
+const dotenv = require("dotenv");
+// Add generic information to env
+dotenv.config({path: resolve(__dirname, "../../safe.env")});
 
 // Compute pin numbers
 const PINS = {
@@ -29,16 +30,16 @@ const PINS = {
         ]
     },
     // always on, power for voltage converter
-    Converter: parseInt(process.env.RM_PWM || "17")
+    Converter: parseInt(process.env.CONVERTER || "17")
 }
 
 // setup 
 const Output = {
-    Left: [
+    Left: [     // PWM_1
         new GPIO(PINS.Left[0], {mode: GPIO.OUTPUT}),
         // new GPIO(PINS.Left[1], {mode: GPIO.OUTPUT})
     ],
-    Right: [
+    Right: [    // PWM_0
         new GPIO(PINS.Right[0], {mode: GPIO.OUTPUT}),
         // new GPIO(PINS.Right[1], {mode: GPIO.OUTPUT}),
     ],
@@ -62,5 +63,6 @@ Output.Power.Left[0].digitalWrite(1);
 Output.Power.Left[1].digitalWrite(1);
 Output.Power.Right[0].digitalWrite(1);
 Output.Power.Right[1].digitalWrite(1);
+Log("Converter and all power outputs enabled with digital write of 1 (full)", 1);
 
 export default Output;
