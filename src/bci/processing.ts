@@ -54,7 +54,7 @@ function calculateAverageCommand(left: number, right: number): void {
     }
 
     // right motor
-    average.sums.right.push(left);
+    average.sums.right.push(right);
     if (average.sums.right.length > 10) {
         average.sums.right.shift();
     }

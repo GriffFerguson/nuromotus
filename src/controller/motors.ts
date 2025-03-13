@@ -35,14 +35,8 @@ const PINS = {
 
 // setup 
 const Output = {
-    Left: [     // PWM_1
-        new GPIO(PINS.Left[0], {mode: GPIO.OUTPUT}),
-        // new GPIO(PINS.Left[1], {mode: GPIO.OUTPUT})
-    ],
-    Right: [    // PWM_0
-        new GPIO(PINS.Right[0], {mode: GPIO.OUTPUT}),
-        // new GPIO(PINS.Right[1], {mode: GPIO.OUTPUT}),
-    ],
+    Left: new GPIO(PINS.Left[0], {mode: GPIO.OUTPUT}),      // PWM_1
+    Right: new GPIO(PINS.Right[0], {mode: GPIO.OUTPUT}),    // PWM_0
     Power: {
         Left: [
             new GPIO(PINS.Power.Left[0], {mode: GPIO.OUTPUT}),

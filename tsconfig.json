@@ -6,8 +6,10 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "rootDir": "./src",
-    "outDir": "dist/"
+    "rootDirs": ["./src"],
+    "outDir": "dist/",
+    "checkJs": true,
+    "removeComments": true
   },
   "exclude": ["node_modules"],
   "include": ["types/", "src/"]
