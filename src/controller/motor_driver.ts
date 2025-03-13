@@ -11,18 +11,16 @@ export default function MotorDriver(data: WSMotorDriveRequest) {
     if (data.left == "forward") {
         if (Speed.left - PWM.increment < PWM.FORWARD) {
             if (Speed.left == 0) {
-                Speed.left = PWM.MIDDLE - 100;
+                Speed.left = PWM.MIDDLE - PWM.increment;
             } else {
                 Speed.left = PWM.FORWARD;
             }
-        } else if (Speed.left == PWM.MIDDLE) {
-            Speed.left = PWM.MIDDLE - 100;
         } else {
             Speed.left -= PWM.increment;
         }
     } else if (data.left == "backward") {
-        if (Speed.left == 0 || PWM.MIDDLE) {
-            Speed.left = PWM.MIDDLE + 100;
+        if (Speed.left == 0) {
+            Speed.left = PWM.MIDDLE + PWM.increment;
         } else if (Speed.left + PWM.increment > PWM.BACKWARD) {
             Speed.left = PWM.BACKWARD
         } else {
@@ -38,20 +36,18 @@ export default function MotorDriver(data: WSMotorDriveRequest) {
     if (data.right == "forward") {
         if (Speed.right - PWM.increment < PWM.FORWARD) {
             if (Speed.right == 0) {
-                Speed.right = PWM.MIDDLE - 100;
+                Speed.right = PWM.MIDDLE - PWM.increment;
             } else {
                 Speed.right = PWM.FORWARD;
             }
-        } else if (Speed.left == PWM.MIDDLE) {
-            Speed.right = PWM.MIDDLE - 100;
         } else {
             Speed.right -= PWM.increment;
         }
     } else if (data.right == "backward") {
-        if (Speed.right == 0 || Speed.right == PWM.MIDDLE) {
-            Speed.right = PWM.MIDDLE + 100;
+        if (Speed.right == 0) {
+            Speed.right = PWM.MIDDLE + PWM.increment;
         } else if (Speed.right + PWM.increment > PWM.BACKWARD) {
-            Speed.right = PWM.BACKWARD;
+            Speed.right = PWM.BACKWARD
         } else {
             Speed.right += PWM.increment;
         }
