@@ -11,14 +11,14 @@ const PWM0_Test = setInterval(() => {
     PWM0_Pulse += 50
     if (PWM0_Pulse > 2000) {
         console.log("PWM_0 test complete. Sending stop signal (1500 microseconds)");
-        Output.Right.servoWrite(1500);
+        Output.Right[0].servoWrite(1500);
         console.log("PWM_0 stop signal sent, exiting test.")
         clearInterval(PWM0_Test);
         startPWM1Test();
         return;
     }
     console.log(`Sending pulse of ${PWM0_Pulse} microseconds (${((PWM0_Pulse - 1500) / 500) * 100}%)`);
-    Output.Right.servoWrite(PWM0_Pulse);
+    Output.Right[0].servoWrite(PWM0_Pulse);
 }, 1000)
 
 // test for PWM_1 (Output.Left)
@@ -29,12 +29,12 @@ function startPWM1Test() {
         PWM1_Pulse += 50
         if (PWM1_Pulse > 2000) {
             console.log("PWM_1 test complete. Sending stop signal (1500 microseconds)");
-            Output.Left.servoWrite(1500);
+            Output.Left[0].servoWrite(1500);
             console.log("PWM_1 stop signal sent, exiting test.")
             clearInterval(PWM1_Test);
             return;
         }
         console.log(`Sending pulse of ${PWM1_Pulse} microseconds (${((PWM1_Pulse - 1500) / 500) * 100}%)`);
-        Output.Left.servoWrite(PWM1_Pulse);
+        Output.Left[0].servoWrite(PWM1_Pulse);
     }, 1000)
 }
