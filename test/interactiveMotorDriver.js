@@ -14,6 +14,17 @@ socket.on("open", () => {
     let left = "stop";
     let right = "stop"
     console.log("connected");
+
+    // print instructions
+    console.log("Welcome to the Interactive Motor Controller Test for the NUROMOTUS Wheelchair!");
+    console.log("This program \"mocks\" the normal EEG controls by replacing mental commands with keyboard commands. Use the following key controls to control the motors:");
+    console.log("  W - forward  (mental command: 'push')");
+    console.log("  A - left     (mental command: 'left')");
+    console.log("  S - backward (mental command: 'pull')");
+    console.log("  D - right    (mental command: 'right')");
+    console.log("  Any key not listed - stop (mental command: 'neutral')");
+    console.log("Have fun!");
+
     rl.input.on("keypress", key => {
         if (key == "w") {
             left = "forward";
