@@ -2,8 +2,10 @@ const Output = require("../dist/controller/motors").default;
 
 /* to run on RPi; tests individual PWM outputs */
 
+console.log("WARNING! Remember to recompile all scripts before running this test (run `pnpm build`)");
+
 // test for PWM_0 (Output.Right)
-console.log("Starting test for PWM_0");
+console.log("Starting test for PWM_0 (Right)");
 let PWM0_Pulse = 1450;  // start 50 below off, as the signal will be incremented by 50 before it gets sent for the first time
 const PWM0_Test = setInterval(() => {
     PWM0_Pulse += 50
@@ -21,7 +23,7 @@ const PWM0_Test = setInterval(() => {
 
 // test for PWM_1 (Output.Left)
 function startPWM1Test() {
-    console.log("Starting test for PWM_1");
+    console.log("Starting test for PWM_1 (Left)");
     let PWM1_Pulse = 1450;  // start 50 below off, as the signal will be incremented by 50 before it gets sent for the first time
     const PWM1_Test = setInterval(() => {
         PWM1_Pulse += 50

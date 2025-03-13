@@ -1,7 +1,7 @@
 const PWM = {
     OFF: 1500,
-    BACKWARD: 1000,
-    FORWARD: 2000,
+    BACKWARD: 2000,
+    FORWARD: 1000,
     increment: 50
 }
 
