@@ -24,7 +24,7 @@ export default function MotorDriver(data: WSMotorDriveRequest) {
         Speed.left = PWM.OFF;
     }
     Output.Left[0].servoWrite(Speed.left);
-    Output.Left[1].servoWrite(Speed.left);
+    // Output.Left[1].servoWrite(Speed.left);
 
     // right motor
     if (data.right == "forward") {
@@ -43,6 +43,6 @@ export default function MotorDriver(data: WSMotorDriveRequest) {
         Speed.right = PWM.OFF;
     }
     Output.Right[0].servoWrite(Speed.right);
-    Output.Right[1].servoWrite(Speed.right);
+    // Output.Right[1].servoWrite(Speed.right);
 
 }

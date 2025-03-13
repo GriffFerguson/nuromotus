@@ -36,11 +36,11 @@ const PINS = {
 const Output = {
     Left: [
         new GPIO(PINS.Left[0], {mode: GPIO.OUTPUT}),
-        new GPIO(PINS.Left[1], {mode: GPIO.OUTPUT})
+        // new GPIO(PINS.Left[1], {mode: GPIO.OUTPUT})
     ],
     Right: [
         new GPIO(PINS.Right[0], {mode: GPIO.OUTPUT}),
-        new GPIO(PINS.Right[1], {mode: GPIO.OUTPUT}),
+        // new GPIO(PINS.Right[1], {mode: GPIO.OUTPUT}),
     ],
     Power: {
         Left: [
