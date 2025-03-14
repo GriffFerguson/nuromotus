@@ -64,7 +64,7 @@ function calculateAverageCommand(left: number, right: number): void {
         rightTotal += value;
     }
 
-    let rightAverage = Math.round(leftTotal / average.sums.right.length);
+    let rightAverage = Math.round(rightTotal / average.sums.right.length);
 
     switch(rightAverage) {
         case 1: // average is 1, or forward
@@ -104,6 +104,8 @@ export default function processData(command: MentalCommands, intensity: number) 
     } else {    // this includes neutral commands
         calculateAverageCommand(0, 0);
     }
+
+    Log(`Average speeds:\n  Left: ${average.left}\n  Right: ${average.right}`, 0)
 
     Motors.left = average.left;
     Motors.right = average.right;
