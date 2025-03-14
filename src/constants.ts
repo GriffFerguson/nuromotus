@@ -3,7 +3,10 @@ const PWM = {
     MIDDLE: 1500,
     BACKWARD: 2000,
     FORWARD: 1000,
-    increment: 100
+    increment: {
+        left: 100,
+        right: 100
+    }
 }
 
 export default PWM;

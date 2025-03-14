@@ -9,22 +9,22 @@ let Speed = {
 export default function MotorDriver(data: WSMotorDriveRequest) {
     // left motor
     if (data.left == "forward") {
-        if (Speed.left - PWM.increment < PWM.FORWARD) {
+        if (Speed.left - PWM.increment.left < PWM.FORWARD) {
             if (Speed.left == 0) {
-                Speed.left = PWM.MIDDLE - PWM.increment;
+                Speed.left = PWM.MIDDLE - PWM.increment.left;
             } else {
                 Speed.left = PWM.FORWARD;
             }
         } else {
-            Speed.left -= PWM.increment;
+            Speed.left -= PWM.increment.left;
         }
     } else if (data.left == "backward") {
         if (Speed.left == 0) {
-            Speed.left = PWM.MIDDLE + PWM.increment;
-        } else if (Speed.left + PWM.increment > PWM.BACKWARD) {
+            Speed.left = PWM.MIDDLE + PWM.increment.left;
+        } else if (Speed.left + PWM.increment.left > PWM.BACKWARD) {
             Speed.left = PWM.BACKWARD
         } else {
-            Speed.left += PWM.increment;
+            Speed.left += PWM.increment.left;
         }
     } else {
         Speed.left = PWM.OFF;
@@ -34,22 +34,22 @@ export default function MotorDriver(data: WSMotorDriveRequest) {
 
     // right motor
     if (data.right == "forward") {
-        if (Speed.right - PWM.increment < PWM.FORWARD) {
+        if (Speed.right - PWM.increment.right < PWM.FORWARD) {
             if (Speed.right == 0) {
-                Speed.right = PWM.MIDDLE - PWM.increment;
+                Speed.right = PWM.MIDDLE - PWM.increment.right;
             } else {
                 Speed.right = PWM.FORWARD;
             }
         } else {
-            Speed.right -= PWM.increment;
+            Speed.right -= PWM.increment.right;
         }
     } else if (data.right == "backward") {
         if (Speed.right == 0) {
-            Speed.right = PWM.MIDDLE + PWM.increment;
-        } else if (Speed.right + PWM.increment > PWM.BACKWARD) {
+            Speed.right = PWM.MIDDLE + PWM.increment.right;
+        } else if (Speed.right + PWM.increment.right > PWM.BACKWARD) {
             Speed.right = PWM.BACKWARD
         } else {
-            Speed.right += PWM.increment;
+            Speed.right += PWM.increment.right;
         }
     } else {
         Speed.right = PWM.OFF;
