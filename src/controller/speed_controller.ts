@@ -13,7 +13,23 @@ let requestedSpeed = {
 
 
 export default function SpeedController(data: WSMotorDriveRequest) {
+    // left motor
+    if (data.left == "forward") {
+        requestedSpeed.left = PWM.FORWARD;
+    } else if (data.left == "backward") {
+        requestedSpeed.left = PWM.BACKWARD;
+    } else {
+        requestedSpeed.left == PWM.MIDDLE;
+    }
 
+    // right motor
+    if (data.right == "forward") {
+        requestedSpeed.right = PWM.FORWARD;
+    } else if (data.right == "backward") {
+        requestedSpeed.right = PWM.BACKWARD;
+    } else {
+        requestedSpeed.right == PWM.MIDDLE;
+    }
 }
 
 // every 100ms increase/decrease motor speed to accelerate to requested speed
