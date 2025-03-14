@@ -36,9 +36,10 @@ export default function SpeedController(data: WSMotorDriveRequest) {
 setInterval(() => {
     // left motor
     if (Speed.left < requestedSpeed.left) {
-        // safety limit
-        if (Speed.left + PWM.increment.left > requestedSpeed.left) {
-            Speed.left = requestedSpeed.left
+        if (Speed.left == PWM.OFF) {
+            Speed.left = PWM.MIDDLE += PWM.increment.left;
+        } else if (Speed.left + PWM.increment.left > requestedSpeed.left) {
+            Speed.left = requestedSpeed.left;
         } else if (Speed.left + PWM.increment.left > PWM.BACKWARD) {    // backward is the highest safe operating value
             Speed.left = PWM.BACKWARD;
         } else if (Speed.left + PWM.increment.left > PWM.LIMIT.MAX) {
@@ -47,7 +48,9 @@ setInterval(() => {
             Speed.left += PWM.increment.left;
         }
     } else if (Speed.left > requestedSpeed.left) {
-        if (Speed.left - PWM.increment.left < requestedSpeed.left) {
+        if (Speed.left == PWM.OFF) {
+            Speed.left = PWM.MIDDLE -= PWM.increment.left;
+        } else if (Speed.left - PWM.increment.left < requestedSpeed.left) {
             Speed.left = requestedSpeed.left;
         } else if (Speed.left - PWM.increment.left < PWM.FORWARD) {
             Speed.left = PWM.FORWARD;
@@ -60,9 +63,10 @@ setInterval(() => {
 
     // right motor
     if (Speed.right < requestedSpeed.right) {
-        // safety limit
-        if (Speed.right + PWM.increment.right > requestedSpeed.right) {
-            Speed.right = requestedSpeed.right
+        if (Speed.right == PWM.OFF) {
+            Speed.right = PWM.MIDDLE += PWM.increment.right;
+        } else if (Speed.right + PWM.increment.right > requestedSpeed.right) {
+            Speed.right = requestedSpeed.right;
         } else if (Speed.right + PWM.increment.right > PWM.BACKWARD) {    // backward is the highest safe operating value
             Speed.right = PWM.BACKWARD;
         } else if (Speed.right + PWM.increment.right > PWM.LIMIT.MAX) {
@@ -71,7 +75,9 @@ setInterval(() => {
             Speed.right += PWM.increment.right;
         }
     } else if (Speed.right > requestedSpeed.right) {
-        if (Speed.right - PWM.increment.right < requestedSpeed.right) {
+        if (Speed.right == PWM.OFF) {
+            Speed.right = PWM.MIDDLE -= PWM.increment.right;
+        } else if (Speed.right - PWM.increment.right < requestedSpeed.right) {
             Speed.right = requestedSpeed.right;
         } else if (Speed.right - PWM.increment.right < PWM.FORWARD) {
             Speed.right = PWM.FORWARD;
@@ -85,4 +91,4 @@ setInterval(() => {
     // apply speed
     Output.Left.servoWrite(Speed.left);
     Output.Right.servoWrite(Speed.right);
-}, 100)
+}, 200)
