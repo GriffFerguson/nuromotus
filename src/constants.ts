@@ -6,6 +6,10 @@ const PWM = {
     increment: {
         left: 100,
         right: 100
+    },
+    LIMIT: {
+        MIN: 1000,
+        MAX: 2000
     }
 }
 
