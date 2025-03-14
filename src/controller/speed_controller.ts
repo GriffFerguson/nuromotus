@@ -19,7 +19,7 @@ export default function SpeedController(data: WSMotorDriveRequest) {
     } else if (data.left == "backward") {
         requestedSpeed.left = PWM.BACKWARD;
     } else {
-        requestedSpeed.left == PWM.MIDDLE;
+        requestedSpeed.left = PWM.MIDDLE;
     }
 
     // right motor
@@ -28,7 +28,7 @@ export default function SpeedController(data: WSMotorDriveRequest) {
     } else if (data.right == "backward") {
         requestedSpeed.right = PWM.BACKWARD;
     } else {
-        requestedSpeed.right == PWM.MIDDLE;
+        requestedSpeed.right = PWM.MIDDLE;
     }
 }
 
@@ -37,7 +37,11 @@ setInterval(() => {
     // left motor
     if (Speed.left < requestedSpeed.left) {
         if (Speed.left == PWM.OFF) {
-            Speed.left = PWM.MIDDLE += PWM.increment.left;
+            if (requestedSpeed.left > PWM.MIDDLE) {
+                Speed.left = PWM.MIDDLE + PWM.increment.left;
+            } else {
+                Speed.left = PWM.MIDDLE - PWM.increment.left;
+            }
         } else if (Speed.left + PWM.increment.left > requestedSpeed.left) {
             Speed.left = requestedSpeed.left;
         } else if (Speed.left + PWM.increment.left > PWM.BACKWARD) {    // backward is the highest safe operating value
@@ -48,9 +52,7 @@ setInterval(() => {
             Speed.left += PWM.increment.left;
         }
     } else if (Speed.left > requestedSpeed.left) {
-        if (Speed.left == PWM.OFF) {
-            Speed.left = PWM.MIDDLE -= PWM.increment.left;
-        } else if (Speed.left - PWM.increment.left < requestedSpeed.left) {
+        if (Speed.left - PWM.increment.left < requestedSpeed.left) {
             Speed.left = requestedSpeed.left;
         } else if (Speed.left - PWM.increment.left < PWM.FORWARD) {
             Speed.left = PWM.FORWARD;
@@ -64,7 +66,11 @@ setInterval(() => {
     // right motor
     if (Speed.right < requestedSpeed.right) {
         if (Speed.right == PWM.OFF) {
-            Speed.right = PWM.MIDDLE += PWM.increment.right;
+            if (requestedSpeed.left > PWM.MIDDLE) {
+                Speed.right = PWM.MIDDLE + PWM.increment.left;
+            } else {
+                Speed.right = PWM.MIDDLE - PWM.increment.left;
+            }
         } else if (Speed.right + PWM.increment.right > requestedSpeed.right) {
             Speed.right = requestedSpeed.right;
         } else if (Speed.right + PWM.increment.right > PWM.BACKWARD) {    // backward is the highest safe operating value
@@ -75,9 +81,7 @@ setInterval(() => {
             Speed.right += PWM.increment.right;
         }
     } else if (Speed.right > requestedSpeed.right) {
-        if (Speed.right == PWM.OFF) {
-            Speed.right = PWM.MIDDLE -= PWM.increment.right;
-        } else if (Speed.right - PWM.increment.right < requestedSpeed.right) {
+        if (Speed.right - PWM.increment.right < requestedSpeed.right) {
             Speed.right = requestedSpeed.right;
         } else if (Speed.right - PWM.increment.right < PWM.FORWARD) {
             Speed.right = PWM.FORWARD;
