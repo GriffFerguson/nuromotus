@@ -1,4 +1,4 @@
-import PWM, { TUNING } from "../constants";
+import PWM, { TUNING_VALUES } from "../constants";
 import Output from "./motors";
 
 let Speed = {
@@ -19,15 +19,23 @@ export default function SpeedController(data: WSMotorDriveRequest) {
             Speed.left = PWM.LIMIT.MIN;
             Output.Left.servoWrite(PWM.LIMIT.MIN);  // max operating speed going forward
             setTimeout(() => {
-                requestedSpeed.left = Math.round(PWM.FORWARD * TUNING.left);
+                requestedSpeed.left = Math.round(PWM.FORWARD * TUNING_VALUES.left);
             }, 80)
         } else {
-            requestedSpeed.left = Math.round(PWM.FORWARD * TUNING.left);
+            requestedSpeed.left = Math.round(PWM.FORWARD * TUNING_VALUES.left);
         }
     } else if (data.left == "backward") {
-        requestedSpeed.left = Math.round(PWM.BACKWARD * TUNING.left);
+        if (Speed.left == PWM.OFF || Speed.left == PWM.MIDDLE) {
+            Speed.left = PWM.LIMIT.MAX;
+            Output.Left.servoWrite(PWM.LIMIT.MAX);  // max operating speed going forward
+            setTimeout(() => {
+                requestedSpeed.left = Math.round(PWM.BACKWARD * TUNING_VALUES.left);
+            }, 80)
+        } else {
+            requestedSpeed.left = Math.round(PWM.BACKWARD * TUNING_VALUES.left);
+        }
     } else {
-        requestedSpeed.left = Math.round(PWM.MIDDLE * TUNING.left);
+        requestedSpeed.left = PWM.MIDDLE;
     }
 
     // right motor
@@ -36,15 +44,23 @@ export default function SpeedController(data: WSMotorDriveRequest) {
             Speed.right = PWM.LIMIT.MIN;
             Output.Right.servoWrite(PWM.LIMIT.MIN);  // max operating speed going forward
             setTimeout(() => {
-                requestedSpeed.right = Math.round(PWM.FORWARD * TUNING.right);
+                requestedSpeed.right = Math.round(PWM.FORWARD * TUNING_VALUES.right);
             }, 80)
         } else {
-            requestedSpeed.right = Math.round(PWM.FORWARD * TUNING.right);
+            requestedSpeed.right = Math.round(PWM.FORWARD * TUNING_VALUES.right);
         }
     } else if (data.right == "backward") {
-        requestedSpeed.right = Math.round(PWM.BACKWARD * TUNING.right);
+        if (Speed.right == PWM.OFF || Speed.right == PWM.MIDDLE) {
+            Speed.right = PWM.LIMIT.MAX;
+            Output.Right.servoWrite(PWM.LIMIT.MAX);  // max operating speed going forward
+            setTimeout(() => {
+                requestedSpeed.right = Math.round(PWM.BACKWARD * TUNING_VALUES.right);
+            }, 80)
+        } else {
+            requestedSpeed.right = Math.round(PWM.BACKWARD * TUNING_VALUES.right);
+        }
     } else {
-        requestedSpeed.right = Math.round(PWM.MIDDLE * TUNING.right);
+        requestedSpeed.right = PWM.MIDDLE;
     }
 }
 
