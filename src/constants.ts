@@ -16,7 +16,7 @@ const PWM = {
 // FORWARD and BACKWARD speeds are multiplied by this value to control final speed
 export const TUNING = {
     left: 1,
-    right: 1
+    right: .97
 };
 
 export default PWM;

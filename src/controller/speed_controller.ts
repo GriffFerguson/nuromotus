@@ -19,15 +19,15 @@ export default function SpeedController(data: WSMotorDriveRequest) {
             Speed.left = PWM.LIMIT.MIN;
             Output.Left.servoWrite(PWM.LIMIT.MIN);  // max operating speed going forward
             setTimeout(() => {
-                requestedSpeed.left = PWM.FORWARD * TUNING.left;
+                requestedSpeed.left = Math.round(PWM.FORWARD * TUNING.left);
             }, 80)
         } else {
-            requestedSpeed.left = PWM.FORWARD * TUNING.left;
+            requestedSpeed.left = Math.round(PWM.FORWARD * TUNING.left);
         }
     } else if (data.left == "backward") {
-        requestedSpeed.left = PWM.BACKWARD * TUNING.left;
+        requestedSpeed.left = Math.round(PWM.BACKWARD * TUNING.left);
     } else {
-        requestedSpeed.left = PWM.MIDDLE * TUNING.left;
+        requestedSpeed.left = Math.round(PWM.MIDDLE * TUNING.left);
     }
 
     // right motor
@@ -36,15 +36,15 @@ export default function SpeedController(data: WSMotorDriveRequest) {
             Speed.right = PWM.LIMIT.MIN;
             Output.Right.servoWrite(PWM.LIMIT.MIN);  // max operating speed going forward
             setTimeout(() => {
-                requestedSpeed.right = PWM.FORWARD * TUNING.right;
+                requestedSpeed.right = Math.round(PWM.FORWARD * TUNING.right);
             }, 80)
         } else {
-            requestedSpeed.right = PWM.FORWARD * TUNING.right;
+            requestedSpeed.right = Math.round(PWM.FORWARD * TUNING.right);
         }
     } else if (data.right == "backward") {
-        requestedSpeed.right = PWM.BACKWARD * TUNING.right;
+        requestedSpeed.right = Math.round(PWM.BACKWARD * TUNING.right);
     } else {
-        requestedSpeed.right = PWM.MIDDLE * TUNING.right;
+        requestedSpeed.right = Math.round(PWM.MIDDLE * TUNING.right);
     }
 }
 
