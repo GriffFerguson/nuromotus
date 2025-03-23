@@ -1,4 +1,4 @@
-import PWM from "../constants";
+import PWM, { TUNING } from "../constants";
 import Output from "./motors";
 
 let Speed = {
@@ -15,20 +15,36 @@ let requestedSpeed = {
 export default function SpeedController(data: WSMotorDriveRequest) {
     // left motor
     if (data.left == "forward") {
-        requestedSpeed.left = PWM.FORWARD;
+        if (Speed.left == PWM.OFF || Speed.left == PWM.MIDDLE) {
+            Speed.left = PWM.LIMIT.MIN;
+            Output.Left.servoWrite(PWM.LIMIT.MIN);  // max operating speed going forward
+            setTimeout(() => {
+                requestedSpeed.left = PWM.FORWARD * TUNING.left;
+            }, 80)
+        } else {
+            requestedSpeed.left = PWM.FORWARD * TUNING.left;
+        }
     } else if (data.left == "backward") {
-        requestedSpeed.left = PWM.BACKWARD;
+        requestedSpeed.left = PWM.BACKWARD * TUNING.left;
     } else {
-        requestedSpeed.left = PWM.MIDDLE;
+        requestedSpeed.left = PWM.MIDDLE * TUNING.left;
     }
 
     // right motor
     if (data.right == "forward") {
-        requestedSpeed.right = PWM.FORWARD;
+        if (Speed.right == PWM.OFF || Speed.right == PWM.MIDDLE) {
+            Speed.right = PWM.LIMIT.MIN;
+            Output.Right.servoWrite(PWM.LIMIT.MIN);  // max operating speed going forward
+            setTimeout(() => {
+                requestedSpeed.right = PWM.FORWARD * TUNING.right;
+            }, 80)
+        } else {
+            requestedSpeed.right = PWM.FORWARD * TUNING.right;
+        }
     } else if (data.right == "backward") {
-        requestedSpeed.right = PWM.BACKWARD;
+        requestedSpeed.right = PWM.BACKWARD * TUNING.right;
     } else {
-        requestedSpeed.right = PWM.MIDDLE;
+        requestedSpeed.right = PWM.MIDDLE * TUNING.right;
     }
 }
 
