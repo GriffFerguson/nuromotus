@@ -16,7 +16,10 @@ const PWM = {
 export default PWM;
 
 /* for motor speed fine tuning */
-const TUNING_RATIO = (PWM.FORWARD / PWM.MIDDLE) - 1;
+const SPEED_RANGE = {
+    forward: PWM.FORWARD - PWM.MIDDLE,
+    backward: PWM.BACKWARD - PWM.MIDDLE
+}
 
 // FORWARD and BACKWARD speeds are multiplied by this value to control final speed
 const TUNING = {
@@ -24,7 +27,13 @@ const TUNING = {
     right: .8
 };
 
-export const TUNING_VALUES = {
-    left: Math.round(TUNING.left * TUNING_RATIO),
-    right: Math.round(TUNING.right * TUNING_RATIO)
+export const TUNED_SPEEDS = {
+    left: {
+        forward: PWM.MIDDLE + Math.round(SPEED_RANGE.forward * TUNING.left),
+        backward: PWM.MIDDLE + Math.round(SPEED_RANGE.backward * TUNING.left)
+    },
+    right: {
+        forward: PWM.MIDDLE + Math.round(SPEED_RANGE.forward * TUNING.right),
+        backward: PWM.MIDDLE + Math.round(SPEED_RANGE.backward * TUNING.right)
+    },
 }
